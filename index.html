@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <title>Beautiful To-do List</title>
+<style>
+  body { background-image:url('http://www.deshow.net/d/file/travel/2009-06/us-landscape-579-2.jpg'); font-family: inconsolata, arial, sans-serif; font-size: 12px; }
+  header, section, footer { display: block; }
+  #container { background-color: #333333; margin: 50px auto; width: 300px;	border: 4px solid #222; opacity:0.6; filter:alpha(opacity=60); /* For IE8 and earlier */	}
+  header h1 { text-align: center; margin: 0; padding: 15px 0;}
+  .form-area {padding-top:20px;}
+  label { display: block; padding-bottom: 5px; text-align: center; }
+  #task { border: 1px solid #888; margin-left: 50px; width: 200px; }
+  #tasks { margin: 20px; padding: 0; }
+  #tasks li { list-style-type: none; padding: 5px; }
+  #tasks li:nth-child(2n) { background-color: #e8e8e8; }
+  #tasks li:nth-child(2n+1) { background-color: #ddd; }
+  #tasks li:hover { background-color: #ccc; }
+  #tasks li a { color: gray; display: block; float: right; text-decoration: none; }
+  #tasks li a:hover { color: black; display: block; float: right; text-decoration: bold; }
+  footer { background-color: #000; color: #aaa; padding: 20px; }
+  footer a { color: #aaa; }
+  footer a:hover { color: #eee; }
+  input { outline:none; transition: all 0.25s ease-in-out; -webkit-transition: all 0.25s ease-in-out; -moz-transition: all 0.25s ease-in-out; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; border:1px solid rgba(0,0,0, 0.2); }
+  input:focus { box-shadow: 0 0 5px rgba(106,205,205, 0.8); -webkit-box-shadow: 0 0 5px rgba(106,205,205, 0.8); -moz-box-shadow: 0 0 5px rgba(106,205,205, 0.8);
+  border:1px solid rgba(106,205,205, 0.8); }
+  </style>
+</head>
+<body>
+<div id="container">
+  <section id="main-content">
+    <div class="form-area">
+      <form id="tasks-form">
+        <input id="task" autofocus>
+      </form>
+    </div>
+  
+    <ul id="tasks"></ul>
+  </section>
+  
+  
+</div>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+  <script type="text/javascript"> 
+    $(document).ready(function() { 
+    
+      var i = 0;
+      
+      // Initial loading of tasks
+      for( i = 0; i < localStorage.length; i++)
+        $("#tasks").append("<li id='task-"+ i +"'>" + localStorage.getItem('task-'+i) + " <a href='#'> x </a></li>");
+        
+      // Add a task
+      $("#tasks-form").submit(function() {
+        if (  $("#task").val() != "" ) {
+          localStorage.setItem( "task-"+i, $("#task").val() );
+          $("#tasks").append("<li id='task-"+i+"'>"+localStorage.getItem("task-"+i)+" <a href='#'> x </a></li>")
+          $("#task-" + i).css('display', 'none');
+          $("#task-" + i).slideDown();
+          $("#task").val("");
+          i++;
+        }
+        return false;
+      });
+      
+      // Remove a task      
+      $("#tasks li a").live("click", function() {
+        localStorage.removeItem($(this).parent().attr("id"));
+        $(this).parent().slideUp('slow', function() { $(this).remove(); } );
+        for(i=0; i<localStorage.length; i++) {
+          if( !localStorage.getItem("task-"+i)) {
+            localStorage.setItem("task-"+i, localStorage.getItem('task-' + (i+1) ) );
+            localStorage.removeItem('task-'+ (i+1) );
+          }
+        }
+      });
+    }); 
+  </script>
+
+
+</body>
+</html>
