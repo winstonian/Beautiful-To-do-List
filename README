@@ -1,0 +1,14 @@
+ReadMe:
+
+Future features to consider (please feel free to help me build these!):
+
+ - Make a background rotator that rotates beautiful images once per day
+ - A dark/transparent menu at the footer of the page about 5-10px tall with further options (e.g. "Sign up" "Login" "Share the list", etc.) - think of it like the Google header menu that is black. 
+ - Account / Login system
+ - Ability to share your to-do  list via link with a friend
+ - Ability to invite others to view and collaborate on the to-do list
+ - Ability to choose your own picture/theme instead of rotating image 
+ - Button allowing you to print the list
+ - Allow you to assign a member responsible for the list item (i.e. their picture/avatar would appear to the left of the list)
+ - Ability to name your list (and create others in your account)
+ - Allow you to move the list items around (meaning drag them up or down)
